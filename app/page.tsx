@@ -50,11 +50,13 @@ function DemoSite({ improved = false }: { improved?: boolean }) {
 
 export default function HomePage() {
   const router = useRouter();
+  const engineEnabled = process.env.NEXT_PUBLIC_STUDIO_ENABLED === "true";
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!engineEnabled) return;
     const candidate = url.trim();
     let parsed: URL;
     try {
@@ -97,9 +99,9 @@ export default function HomePage() {
             <div className="of-form-row">
               <Globe2 size={19} aria-hidden="true" />
               <input id="website-url" type="text" value={url} onChange={e => {setUrl(e.target.value);setError("");}} placeholder="yourwebsite.com" autoComplete="url" required aria-invalid={!!error} aria-describedby={error ? "of-error" : undefined} />
-              <button type="submit">Upgrade website <ArrowRight size={18} /></button>
+              <button type="submit" disabled={!engineEnabled} title={!engineEnabled ? "Studio engine is being configured" : "Upgrade website"}>{engineEnabled ? "Upgrade website" : "Studio coming soon"} <ArrowRight size={18} /></button>
             </div>
-            {error ? <p id="of-error" className="of-error" role="alert">{error}</p> : <p className="of-form-note"><Check size={14}/> Keep the content. Improve the experience.</p>}
+            {error ? <p id="of-error" className="of-error" role="alert">{error}</p> : <p className="of-form-note"><Check size={14}/>{engineEnabled ? "Keep the content. Improve the experience." : "Preview available now. Website generation opens after setup."}</p>}
           </form>
         </div>
 
