@@ -120,6 +120,11 @@ export async function POST(request: NextRequest) {
       aiModel = groq(model);
     }
     
+    // Native AI SDK model IDs use Vercel OIDC automatically on deployment.
+    if (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN) {
+      aiModel = model;
+    }
+
     console.log('[analyze-edit-intent] Using AI model:', model);
     
     // Use AI to create a search plan
