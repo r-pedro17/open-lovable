@@ -1,72 +1,46 @@
-# Open Lovable — Private Website Studio
+# OctoFrame Studio — website upgrade workspace
+
+A minimal interface for capturing an existing website, improving its design and
+structure, and reviewing the result. Built as a customized fork of
+[Firecrawl Open Lovable](https://github.com/firecrawl/open-lovable) (MIT).
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fr-pedro17%2Fopen-lovable)
 
-**Private single-operator fork:** secure setup and deployment instructions: [docs/DEPLOY.md](docs/DEPLOY.md). Configure `STUDIO_USERNAME`, `STUDIO_PASSWORD`, `FIRECRAWL_API_KEY` and `SANDBOX_PROVIDER=vercel` before deploying. AI SDK Gateway routes support Vercel OIDC, but some upstream routes still need conversion. Multi-user isolation, budget enforcement, replay and GitHub export remain incomplete; do not expose publicly.
+## Current state
+- **Public landing page** uses the OctoFrame V5.2 visual direction and shows
+  **illustrative**, not generated, before/after examples.
+- **Private generation engine** lives at `/generation`. Its API routes are
+  unavailable until both `STUDIO_USERNAME` and `STUDIO_PASSWORD` are set.
+- Website scraping requires `FIRECRAWL_API_KEY`.
+- Vercel Sandbox is supported, but project creation does not automatically
+  provision a running sandbox. Sandbox usage begins when the app calls the API.
+- Vercel AI Gateway can use project OIDC on migrated AI SDK routes. Some
+  legacy provider routes still need conversion. Model access, usage limits,
+  and production operation are not yet fully verified.
+- Multi-user access is **not supported**: upstream process-global state is
+  not session-isolated. Avoid sharing credentials or exposing generated
+  sandbox preview URLs.
 
+## Deploy
+1. Click **Deploy with Vercel** or import this repository as a Next.js project.
+2. Publish the public homepage with **no application keys**.
+3. When ready, set `STUDIO_USERNAME`, `STUDIO_PASSWORD`,
+   `FIRECRAWL_API_KEY`, and `SANDBOX_PROVIDER=vercel` in Vercel project
+   environment variables and redeploy.
+4. Enable Vercel AI Gateway and configure cost controls before use.
+5. Verify authorization, screenshot capture, generation, sandbox lifecycle,
+   and export end to end.
 
-Chat with AI to build React apps instantly. An example app made by the [Firecrawl](https://firecrawl.dev/?ref=open-lovable-github) team. For a complete cloud solution, check out [Lovable.dev](https://lovable.dev/) ❤️.
+See [deployment and security notes](docs/DEPLOY.md).
 
-<img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZtaHFleGRsMTNlaWNydGdianI4NGQ4dHhyZjB0d2VkcjRyeXBucCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZFVLWMa6dVskQX0qu1/giphy.gif" alt="Open Lovable Demo" width="100%"/>
-
-## Setup
-
-1. **Clone & Install**
-```bash
-git clone https://github.com/firecrawl/open-lovable.git
-cd open-lovable
-pnpm install  # or npm install / yarn install
+## Development
+```sh
+npm ci
+npm run dev
 ```
 
-2. **Add `.env.local`**
-
-```env
-# =================================================================
-# REQUIRED
-# =================================================================
-FIRECRAWL_API_KEY=your_firecrawl_api_key    # https://firecrawl.dev
-
-# =================================================================
-# AI PROVIDER - Choose your LLM
-# =================================================================
-GEMINI_API_KEY=your_gemini_api_key        # https://aistudio.google.com/app/apikey
-ANTHROPIC_API_KEY=your_anthropic_api_key  # https://console.anthropic.com
-OPENAI_API_KEY=your_openai_api_key        # https://platform.openai.com
-GROQ_API_KEY=your_groq_api_key            # https://console.groq.com
-
-# =================================================================
-# FAST APPLY (Optional - for faster edits)
-# =================================================================
-MORPH_API_KEY=your_morphllm_api_key    # https://morphllm.com/dashboard
-
-# =================================================================
-# SANDBOX PROVIDER - Choose ONE: Vercel (default) or E2B
-# =================================================================
-SANDBOX_PROVIDER=vercel  # or 'e2b'
-
-# Option 1: Vercel Sandbox (default)
-# Choose one authentication method:
-
-# Method A: OIDC Token (recommended for development)
-# Run `vercel link` then `vercel env pull` to get VERCEL_OIDC_TOKEN automatically
-VERCEL_OIDC_TOKEN=auto_generated_by_vercel_env_pull
-
-# Method B: Personal Access Token (for production or when OIDC unavailable)
-# VERCEL_TEAM_ID=team_xxxxxxxxx      # Your Vercel team ID 
-# VERCEL_PROJECT_ID=prj_xxxxxxxxx    # Your Vercel project ID
-# VERCEL_TOKEN=vercel_xxxxxxxxxxxx   # Personal access token from Vercel dashboard
-
-# Option 2: E2B Sandbox
-# E2B_API_KEY=your_e2b_api_key      # https://e2b.dev
-```
-
-3. **Run**
-```bash
-pnpm dev  # or npm run dev / yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000)
+Copy `.env.example` to `.env.local` for local testing. Do not commit real keys.
 
 ## License
-
-MIT
+MIT. Original implementation © Firecrawl contributors, maintained here as
+an independent customized fork. Not affiliated with Relume.
