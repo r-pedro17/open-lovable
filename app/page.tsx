@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, ArrowUpRight, Check, ChevronRight, Globe2, Layers3, RotateCcw } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, ChevronRight, Globe2, Layers3 } from "lucide-react";
 import { appConfig } from "@/config/app.config";
 import "./studio.css";
 
@@ -52,7 +52,6 @@ export default function HomePage() {
   const router = useRouter();
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
-  const [comparison, setComparison] = useState<"after" | "before">("after");
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
