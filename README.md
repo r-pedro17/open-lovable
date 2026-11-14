@@ -6,6 +6,10 @@ structure, and reviewing the result. Built as a customized fork of
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fr-pedro17%2Fopen-lovable)
 
+## Ownership and execution
+
+See [Operating model, work packages and colleague access](docs/OPERATING_MODEL.md). This is the source of truth for responsibility split and release gates.
+
 ## Current state
 - **Public landing page** uses the OctoFrame V5.2 visual direction and shows
   **illustrative**, not generated, before/after examples.
