@@ -26,8 +26,8 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Open Lovable v3",
-  description: "Re-imagine any website in seconds with AI-powered website builder.",
+  title: "OctoFrame Studio | Upgrade your website",
+  description: "A considered, modern upgrade for your existing website. Capture, improve, compare, and refine with OctoFrame Studio.",
 };
 
 export default function RootLayout({
