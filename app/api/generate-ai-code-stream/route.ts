@@ -10,6 +10,7 @@ import { executeSearchPlan, formatSearchResultsForAI, selectTargetFile } from '@
 import { FileManifest } from '@/types/file-manifest';
 import type { ConversationState, ConversationMessage, ConversationEdit } from '@/types/conversation';
 import { appConfig } from '@/config/app.config';
+import { DESIGN_QUALITY_RULES } from '@/lib/studio/design-rules';
 
 // Force dynamic route to enable streaming
 export const dynamic = 'force-dynamic';
@@ -1242,9 +1243,12 @@ MORPH FAST APPLY MODE (EDIT-ONLY):
         console.log(`[generate-ai-code-stream] AI Gateway enabled: ${isUsingAIGateway}`);
         console.log(`[generate-ai-code-stream] Model string: ${model}`);
 
+        // Apply premium design quality requirements to both first generation and edits.
+        systemPrompt += '\n\n' + DESIGN_QUALITY_RULES;
+
         // Make streaming API call with appropriate provider
         const streamOptions: any = {
-          model: modelProvider(actualModel),
+          model: (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN) ? model : modelProvider(actualModel),
           messages: [
             { 
               role: 'system', 
@@ -1752,7 +1756,7 @@ Provide the complete file content without any truncation. Include all necessary 
                 }
                 
                 const completionResult = await streamText({
-                  model: completionClient(completionModelName),
+                  model: (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN) ? model : completionClient(completionModelName),
                   messages: [
                     { 
                       role: 'system', 
