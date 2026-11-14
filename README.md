@@ -1,4 +1,9 @@
-# Open Lovable
+# Open Lovable — Private Website Studio
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fr-pedro17%2Fopen-lovable)
+
+**Private single-operator fork:** secure setup and deployment instructions: [docs/DEPLOY.md](docs/DEPLOY.md). Configure `STUDIO_USERNAME`, `STUDIO_PASSWORD`, `FIRECRAWL_API_KEY` and `SANDBOX_PROVIDER=vercel` before deploying. AI SDK Gateway routes support Vercel OIDC, but some upstream routes still need conversion. Multi-user isolation, budget enforcement, replay and GitHub export remain incomplete; do not expose publicly.
+
 
 Chat with AI to build React apps instantly. An example app made by the [Firecrawl](https://firecrawl.dev/?ref=open-lovable-github) team. For a complete cloud solution, check out [Lovable.dev](https://lovable.dev/) ❤️.
 
